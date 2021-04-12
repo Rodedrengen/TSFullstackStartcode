@@ -6,6 +6,7 @@ import { ApiError } from "./errors/errors"
 
 //TODO: Decide for which one to use below
 import friendsRoutes from "./routes/friendRoutesAuth";
+import critroleRoutes from "./routes/critroleRoutes"
 //import friendsRoutes from "./routes/friendRoutes";
 const debug = require("debug")("app")
 import { Request, Response, NextFunction } from "express"
@@ -37,13 +38,15 @@ app.use(express.static(path.join(process.cwd(), "public")))
 
 app.use("/api/friends", friendsRoutes)
 
+app.use("/api/crit", critroleRoutes)
+
 app.get("/demo", (req, res) => {
   res.send("Server is up");
 })
 
 //Our own default 404-handler for api-requests
 app.use("/api", (req: any, res: any, next) => {
-  res.status(404).json({ errorCode: 404, msg: "not found" })
+  res.status(404).json({ errorCode: 404, msg: "not found - endpoint faliure" })
 })
 
 //Makes JSON error-response for ApiErrors, otherwise pass on to default error handleer
