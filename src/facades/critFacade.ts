@@ -27,7 +27,7 @@ class CritFacade {
       throw new ApiError("Not a number", 400)
     }
 
-    const stats: unknown = await this.critCollection.find({ episode: episodeNumber }).toArray();
+    const stats: unknown = await this.critCollection.find({ episode: episodeNumber }).sort({"time" : 1}).toArray();
 
     return stats as Array<IStats>
   }

@@ -36,8 +36,8 @@ router.post('/', async function (req, res, next) {
 router.get("/all", async (req: any, res) => {
   const friends = await facade.getAllFriends();
   const friendsDTO = friends.map(friend => {
-    const { firstName, lastName, email } = friend
-    return { firstName, lastName, email }
+    const { firstName, job, race } = friend
+    return { firstName, job, race }
   })
   res.json(friendsDTO);
 })

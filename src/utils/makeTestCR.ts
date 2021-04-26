@@ -13,12 +13,12 @@ async function readFile() {
         .pipe(csv())
         .on('data', (row: any) => {
     
-            let ep = new episodeData(row.Episode,
+            let ep = new episodeData(parseInt(row.Episode),
                                     row.Time,
                                     row.Character,
                                     row.Type,
-                                    row.Total,
-                                    row.Natural,
+                                    parseInt(row.Total),
+                                    parseInt(row.Natural),
                                     row.Crit,
                                     row.Damage,
                                     row.Kills,
@@ -47,18 +47,18 @@ async function toDb(data: episodeData[]) {
 }
 class episodeData{
 
-    episode: string;
-    time: string;
-    character: string; 
-    type: string;
-    total: number;
-    natural: number;
-    crit: string;
-    damage: number;
-    kills: string;
-    notes: string;
+    episode: Number;
+    time: String;
+    character: String; 
+    type: String;
+    total: Number;
+    natural: Number;
+    crit: String;
+    damage: Number;
+    kills: String;
+    notes: String;
 
-    constructor(Episode: string,Time: string,Character: string,Type: string,Total: number,Natural: number,Crit: string,Damage: number,Kills: string,Notes: string){
+    constructor(Episode: Number,Time: String,Character: String,Type: String,Total: Number,Natural: Number,Crit: String,Damage: Number,Kills: String,Notes: String){
         this.episode = Episode
         this.time = Time
         this.character = Character
@@ -71,4 +71,5 @@ class episodeData{
         this.notes = Notes
     }
 }
+
 readFile();

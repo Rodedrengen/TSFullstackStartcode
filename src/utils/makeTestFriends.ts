@@ -9,15 +9,19 @@ async function tester() {
   const db = client.db(process.env.DB_NAME)
   
   const friendsCollection = db.collection("friends");
-  const hashedPW = await hash("secret", 8);
-  friendsCollection.createIndex({ email: 1 }, { unique: true })
+  const hashedPW = await hash("crit", 8);
+  friendsCollection.createIndex({ firstName: 1 }, { unique: true })
 
   await friendsCollection.deleteMany({});
 
   const status = await friendsCollection.insertMany([
-    { firstName: "Peter", lastName: "Pan", email: "pp@b.dk", password: hashedPW, role: "user" },
-    { firstName: "Donald", lastName: "Duck", email: "dd@b.dk", password: hashedPW, role: "user" },
-    { firstName: "Peter", lastName: "Admin", email: "peter@admin.dk", password: hashedPW, role: "admin" },
+    { firstName: "Vex'halia",job: "Ranger" ,level: 1 ,race:"Half-elf", password: hashedPW, role: "user" },
+    { firstName: "Scanlan",job: "Bard",level: 1 , race:"Gnome", password: hashedPW, role: "user" },
+    { firstName: "Keyleth",job: "Druid",level: 1 ,race:"Half-elf", password: hashedPW, role: "user" },
+    { firstName: "Percy",job: "Fighter",level: 1 ,race:"Human", password: hashedPW, role: "user" },
+    { firstName: "Pike",job: "Cleric",level: 1 ,race:"Gnome", password: hashedPW, role: "user" },
+    { firstName: "Grog",job: "Barbarian",level: 1 ,race:"Goliath", password: hashedPW, role: "user" },
+    { firstName: "Vax'ildan",job: "Rogue",level: 1 ,race:"Half-elf", password: hashedPW, role: "user" },
   ])
 
 

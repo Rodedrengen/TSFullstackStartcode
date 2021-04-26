@@ -1,4 +1,5 @@
 import { Router } from "express"
+import app from "../app";
 const router = Router();
 import { ApiError } from "../errors/errors"
 import CritFacade from "../facades/critFacade"
@@ -8,6 +9,7 @@ let facade: CritFacade;
 
 router.use(async (req, res, next) => {
   if (!facade) {
+    req.app.get("logger").info("facade created")
     const db = req.app.get("db")
     debug("Database used: " + req.app.get("db-type"))
     facade = new CritFacade(db)
@@ -16,13 +18,13 @@ router.use(async (req, res, next) => {
 })
 router.get("/all", async (req: any, res, next) => {
   const stats = await facade.getAllStats();
-
+  req.app.get("logger").info("crit all")
   res.json(stats);
 })
 
 router.get("/episode/:number", async (req: any, res, next) => {
   try {
-    const episodeNumber = req.params.number;
+    const episodeNumber:number = parseInt(req.params.number);
     const stats = await facade.getSpecificEpisode(episodeNumber);
 
     if (stats.length === 0) {
